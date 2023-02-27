@@ -1,5 +1,7 @@
 <?php
 
+    /** @noinspection PhpUndefinedVariableInspection */
+    require_once realpath(__DIR__ . DIRECTORY_SEPARATOR . 'SQL.php');
     use Dotenv\Dotenv;
     use Dotenv\Exception\ValidationException;
 
@@ -44,8 +46,20 @@
         );
         if($connect_database->connect_error === null)
         {
-//            select database if everything is ok
+//          select database if everything is ok
             $connect_database->select_db(MYSQLI_DATABASE_NAME);
+//          run query's
+            $connect_database->query($create_table_users);
+            $connect_database->query($create_table_about_section_one);
+            $connect_database->query($create_table_about_section_two);
+            $connect_database->query($create_table_services_box);
+            $connect_database->query($create_table_services_gallery);
+            $connect_database->query($create_table_protofile);
+            $connect_database->query($create_table_contact_details);
+            $connect_database->query($create_table_contact_form);
+            $connect_database->query($create_table_footer);
+            $connect_database->query($create_table_brand);
+
         }
     } catch (mysqli_sql_exception $exception) {
         if($exception->getCode() === 2002){
