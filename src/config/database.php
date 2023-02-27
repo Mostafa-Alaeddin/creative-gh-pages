@@ -22,6 +22,10 @@
             port:       MYSQLI_PORT,
             socket:     MYSQLI_SOCKET
         );
+        if($connect_database->connect_error === null)
+        {
+            $connect_database->select_db(MYSQLI_DATABASE_NAME);
+        }
     } catch (mysqli_sql_exception $exception) {
         if($exception->getCode() === 2002){
             throw new InvalidArgumentException
@@ -39,5 +43,6 @@
                 socket:     MYSQLI_SOCKET
             );
             $connect_database->query("CREATE DATABASE IF NOT EXISTS " . MYSQLI_DATABASE_NAME);
+
         }
     }
