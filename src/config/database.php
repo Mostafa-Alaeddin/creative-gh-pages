@@ -23,6 +23,13 @@
             socket:     MYSQLI_SOCKET
         );
     } catch (mysqli_sql_exception $exception) {
+        if($exception->getCode() === 2002){
+            throw new InvalidArgumentException
+            (
+                message: 'An error occurred in the configuration of the .env file in the database section',
+                code:2002
+            );
+        }
         if ($exception->getCode() === 1049) {
             $connect_database = new mysqli(
                 hostname:   MYSQLI_HOST_NAME,
