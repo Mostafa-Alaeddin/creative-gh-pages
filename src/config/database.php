@@ -100,21 +100,57 @@
                 // validation passes
                 $_SESSION['success_register_form'] = "Registration was successful";
                 $create_user = "INSERT INTO `users`(`full_name`, `email`, `password`, `role`) VALUES ('{$full_name}','{$email}','{$password}','{$role}')";
+
                 try {
                     $connect_database->query($create_user);
-                    header('Location:index.php', true);
-                }catch (mysqli_sql_exception $exception)
-                {
+                    header('Location:Admin/index.php', true);
+                } catch (mysqli_sql_exception $exception) {
 //                    If the email is duplicate
-                    if($exception->getCode() === 1062)
-                    {
+                    if ($exception->getCode() === 1062) {
                         $_SESSION['email'] = 'This email exists';
                     }
                 }
-
             }
         }
 //        login code
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['sign_in'])) {
+            if (isset($_SESSION['success_register_form'])) {
+                header('Location: Admin/index.php');
+            }
+            $email = mysqli_real_escape_string($connect_database, $_POST['email']);
+            $password = md5(mysqli_real_escape_string($connect_database, $_POST['password']));
+
+            $result = $connect_database->query(
+                "SELECT `id`, `role`, `full_name` FROM `users` WHERE `email` = '$email' and `password` = '$password'"
+            );
+            $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+            $count = mysqli_num_rows($result);
+
+            //            validated data
+            $validator = new Validator;
+            $validation = $validator->make($_POST + $_FILES, [
+                'email' => 'required|email',
+                'password' => 'required|min:6',
+            ]);
+
+            $validation->validate();
+
+            if ($validation->fails()) {
+                // handling errors
+                $errors = $validation->errors();
+
+                foreach ($errors->firstOfAll() as $key => $error) {
+                    $_SESSION[$key] = $error;
+                }
+            } else {
+                // validation passes
+                if ($count === 1) {
+                    $_SESSION['login_user'] = $row['full_name'];
+                    header("location: Admin/index.php");
+                }
+                $_SESSION['Login_failed'] = "Your username or password is incorrect";
+            }
+        }
     } catch (mysqli_sql_exception $exception) {
         if ($exception->getCode() === 2002) {
             throw new InvalidArgumentException
