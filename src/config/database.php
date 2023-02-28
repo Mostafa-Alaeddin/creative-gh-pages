@@ -71,6 +71,7 @@
             $connect_database->query($create_table_footer);
             $connect_database->query($create_table_brand);
         }
+//        register code
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
 //            set value
             $full_name = $_POST['full_name'];
@@ -113,6 +114,7 @@
 
             }
         }
+//        login code
     } catch (mysqli_sql_exception $exception) {
         if ($exception->getCode() === 2002) {
             throw new InvalidArgumentException
