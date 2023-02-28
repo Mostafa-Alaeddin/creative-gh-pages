@@ -1,3 +1,7 @@
+<?php
+
+    require_once realpath(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'database.php');
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -11,10 +15,8 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">
 
 
-
-
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 
 
     <style>
@@ -68,6 +70,7 @@
             white-space: nowrap;
             -webkit-overflow-scrolling: touch;
         }
+
         html,
         body {
             height: 100%;
@@ -112,32 +115,81 @@
 
 <main class="form-signin w-100 m-auto">
     <!--    start login form-->
+    <form method="post" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>">
+        <h1 class="h3 mb-3 fw-normal">Please register</h1>
+        <!--        full name partial -->
+        <div class="form-floating my-2">
+            <input type="text"
+                   name="full_name"
+                   class="form-control"
+                   id="floatingInput"
+                   placeholder="Enter your Full Name"
+                   value="<?= $full_name ?? '' ?>"
+            >
+            <label for="floatingInput">Full Name</label>
+            <?php
+                if (isset($_SESSION['full_name'])) {
+                    echo "<span class='text-danger'> {$_SESSION['full_name']} </span>";
+                }
+                unset($_SESSION['full_name']);
+            ?>
+        </div>
+        <!--        end full name partial-->
 
-    <form>
-                    <h1 class="h3 mb-3 fw-normal">Please register</h1>
+        <!--        start email partial-->
+        <div class="form-floating my-2">
+            <input type="text"
+                   name="email"
+                   class="form-control"
+                   id="floatingInput"
+                   placeholder="name@example.com"
+                   value="<?= isset($email) ? $email : ''?>"
+            >
+            <label for="floatingInput">Email address</label>
+            <?php
+                if (isset($_SESSION['email'])) {
+                    echo "<span class='text-danger'> {$_SESSION['email']} </span>";
+                }
+                unset($_SESSION['email']);
+            ?>
+        </div>
+        <!--        end email partial -->
 
-                    <div class="form-floating my-2">
-                        <input type="text" name="full_name" class="form-control" id="floatingInput" placeholder="Enter your Fullname">
-                        <label for="floatingInput">Full Name</label>
-                    </div>
-                    <div class="form-floating my-2">
-                        <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                        <label for="floatingInput">Email address</label>
-                    </div>
-                    <div class="form-floating my-2">
-                        <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
-                        <label for="floatingPassword">Password</label>
-                    </div>
-                    <button class="w-100 btn btn-lg btn-primary my-2" type="submit">Sign in</button>
-                    <p class="mt-5 mb-3 text-muted">&copy; 2022–2023</p>
-                </form>
+        <!--        start password partial -->
+        <div class="form-floating my-2">
+            <input type="password"
+                   name="password"
+                   class="form-control"
+                   id="floatingPassword"
+                   placeholder="Password"
+            >
+            <label for="floatingPassword">Password</label>
+            <?php
+                if (isset($_SESSION['password'])) {
+                    echo "<span class='text-danger'> {$_SESSION['password']} </span>";
+                }
+                unset($_SESSION['password']);
+            ?>
+        </div>
+        <!--        end password partial-->
+
+        <!--        start register button-->
+        <button class="w-100 btn btn-lg btn-primary my-2" type="submit" name="register">Register</button>
+        <!--      end  register button-->
+
+        <p class="mt-5 mb-3 text-muted">&copy; 2022–2023</p>
+    </form>
 
     <!--    end login form-->
 </main>
 
 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
+        integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
+        crossorigin="anonymous"></script>
 
 </body>
 </html>
