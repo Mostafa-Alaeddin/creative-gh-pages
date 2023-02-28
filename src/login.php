@@ -1,3 +1,5 @@
+<?php
+    require_once realpath(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'database.php') ?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -105,24 +107,61 @@
 
 
     <!-- Custom styles for this template -->
-    <link href="sign-in.css" rel="stylesheet">
+    <!--    <link href="sign-in.css" rel="stylesheet">-->
 </head>
 <body class="text-center">
 
 <main class="form-signin w-100 m-auto">
     <!--    start login form-->
-    <form>
+    <?php
+        if (isset($_SESSION['Login_failed']))  : ?>
+            <div class="alert alert-danger" role="alert">
+                <h4 class="alert-heading">Login failed</h4>
+                <p><?php
+                        echo $_SESSION['Login_failed'] ?></p>
+                <hr>
+                <p class="mb-0"><a href="register.php">Click </a>if you have not registered</p>
+            </div>
+        <?php
+        unset($_SESSION['Login_failed']);
+        endif; ?>
+    <form method="post" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>">
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+        <!--        start email part-->
         <div class="form-floating my-2">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <input type="email"
+                   name="email"
+                   class="form-control"
+                   id="floatingInput"
+                   placeholder="name@example.com"
+                   value="<?= isset($email) ? $email : '' ?>"
+            >
             <label for="floatingInput">Email address</label>
+            <?php
+                if (isset($_SESSION['email'])) {
+                    echo "<span class='text-danger'>{$_SESSION['email']}</span>";
+                }
+                unset($_SESSION['email']);
+            ?>
         </div>
+        <!--        end email part-->
+
+        <!--        start password part-->
         <div class="form-floating my-2">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
             <label for="floatingPassword">Password</label>
+            <?php
+                if (isset($_SESSION['password'])) {
+                    echo "<span class='text-danger'>{$_SESSION['password']}</span>";
+                }
+                unset($_SESSION['password']);
+            ?>
         </div>
-        <button class="w-100 btn btn-lg btn-primary my-2" type="submit">Sign in</button>
-        <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
+        <!--        end password part-->
+
+        <!--        button sign in-->
+        <button class="w-100 btn btn-lg btn-primary my-2" type="submit" name="sign_in">Sign in</button>
+        <p class="mt-5 mb-3 text-muted">&copy; 2022–2023</p>
     </form>
     <!--    end login form-->
 </main>
