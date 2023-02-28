@@ -1100,7 +1100,7 @@
                         if (!isSupported) if ("INPUT" === input.tagName) {
                             var el = document.createElement("input");
                             el.setAttribute("type", elementType), isSupported = "text" === el.type, el = null;
-                        } else isSupported = "partial";
+                        } else isSupported = "includes";
                         return !1 !== isSupported ? function(npt) {
                             function getter() {
                                 return this.inputmask ? this.inputmask.opts.autoUnmask ? this.inputmask.unmaskedvalue() : -1 !== getLastValidPosition() || !0 !== opts.nullable ? document.activeElement === this && opts.clearMaskOnLostFocus ? (isRTL ? clearOptionalTail(getBuffer().slice()).reverse() : clearOptionalTail(getBuffer().slice())).join("") : valueGet.call(this) : "" : valueGet.call(this);
