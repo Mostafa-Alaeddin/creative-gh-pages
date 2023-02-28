@@ -3,7 +3,8 @@
     //    Table Users
     $create_table_users = "CREATE TABLE IF NOT EXISTS `users`(
         id              INT(24) AUTO_INCREMENT PRIMARY KEY,
-        email           VARCHAR(50) NOT NULL UNIQUE ,
+        full_name       VARCHAR(80) NOT NULL,
+        email           VARCHAR(100) NOT NULL UNIQUE ,
         password        VARCHAR(150) NOT NULL ,
         role            TINYINT DEFAULT(3),
         created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP
