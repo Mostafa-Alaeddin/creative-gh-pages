@@ -1,9 +1,5 @@
 <?php
 
-    //=========================================== Start Config File =======================================\\
-    require_once realpath(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.php');
-    //=========================================== EndConfig File ==========================================\\
-
     //=========================================== Start Header=======================================\\
     include_once realpath(__DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'header.inc.php');
     //=========================================== End Header =========================================\\
