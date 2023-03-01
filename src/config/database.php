@@ -51,10 +51,10 @@
         hostname: MYSQLI_HOST_NAME,
         username: MYSQLI_USER_NAME,
         password: MYSQLI_PASSWORD,
-        database: MYSQLI_DATABASE_NAME,
         port: MYSQLI_PORT,
         socket: MYSQLI_SOCKET
     );
+    $connect_database->query("CREATE DATABASE IF NOT EXISTS " . MYSQLI_DATABASE_NAME);
     try {
         if ($connect_database->connect_error === null) {
 //          select database if everything is ok
