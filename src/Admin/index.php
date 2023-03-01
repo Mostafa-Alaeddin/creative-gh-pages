@@ -1,7 +1,7 @@
 <?php
 
-    require_once realpath(__DIR__ . DIRECTORY_SEPARATOR . 'partial' . DIRECTORY_SEPARATOR . 'head.inc.php') ?>
-
+    include_once realpath(__DIR__ . DIRECTORY_SEPARATOR . 'partial' . DIRECTORY_SEPARATOR . 'head.inc.php');
+?>
     <div class="preloader">
         <div class="lds-ripple">
             <div class="lds-pos"></div>
@@ -12,13 +12,13 @@
     <div id="main-wrapper">
 
         <?php
-            require_once realpath(
+            include_once realpath(
                 __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'header.inc.php'
             ) ?>
 
 
         <?php
-            require_once realpath(__DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'aside.inc.php') ?>
+            include_once realpath(__DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'aside.inc.php') ?>
 
 
         <div class="page-wrapper">
@@ -56,4 +56,4 @@
     </div>
 
 <?php
-    require_once realpath(__DIR__ . DIRECTORY_SEPARATOR . 'partial' . DIRECTORY_SEPARATOR . 'footer.inc.php');
+    include_once realpath(__DIR__ . DIRECTORY_SEPARATOR . 'partial' . DIRECTORY_SEPARATOR . 'footer.inc.php');
